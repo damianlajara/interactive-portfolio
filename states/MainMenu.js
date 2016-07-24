@@ -6,6 +6,7 @@ BasicGame.MainMenu = function (game) {
 	this.player;
 	this.jumpButton;
 	this.jumpTimer = 0;
+	this.map;
 
 };
 
@@ -14,6 +15,16 @@ BasicGame.MainMenu.prototype = {
 	create: function () {
 
         this.bg = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
+		this.map = this.game.add.tilemap('base_level');
+		this.map.addTilesetImage('small_tiles');
+		this.map.addTilesetImage('chest');
+		this.map.addTilesetImage('all_tiles');
+		this.map.createLayer('trees');
+		var groundLayer = this.map.createLayer('ground');
+		this.map.createLayer('objects');
+		groundLayer.resizeWorld();
+		
+		// this.map.setCollisionBetween(1, 1, true, 'objects');
 		this.player = this.game.add.sprite(90, 500, 'player');
 		this.player.anchor.setTo(0.5, 0.5);
 		this.player.scale.setTo(0.18, 0.18);
