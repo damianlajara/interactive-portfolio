@@ -7,24 +7,24 @@ BasicGame.MainMenu = function (game) {
 	this.jumpButton;
 	this.jumpTimer = 0;
 	this.map;
+	this.groundLayer;
 
 };
 
 BasicGame.MainMenu.prototype = {
 
 	create: function () {
-
-        this.bg = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
+        this.bg = this.add.tileSprite(0, 0, this.game.world.width * 4, this.game.height, 'background');
 		this.map = this.game.add.tilemap('base_level');
 		this.map.addTilesetImage('small_tiles');
 		this.map.addTilesetImage('chest');
 		this.map.addTilesetImage('all_tiles');
 		this.map.createLayer('trees');
-		var groundLayer = this.map.createLayer('ground');
-		this.map.createLayer('objects');
-		groundLayer.resizeWorld();
-		
-		// this.map.setCollisionBetween(1, 1, true, 'objects');
+		this.groundLayer = this.map.createLayer('ground');
+		this.groundLayer.debug = true;
+		this.groundLayer.resizeWorld();
+
+		this.map.setCollisionBetween(0, 700, true, 'ground');
 		this.player = this.game.add.sprite(90, 500, 'player');
 		this.player.anchor.setTo(0.5, 0.5);
 		this.player.scale.setTo(0.18, 0.18);
@@ -36,13 +36,13 @@ BasicGame.MainMenu.prototype = {
 
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
-		this.game.physics.arcade.gravity.y = 350;
+		this.game.physics.arcade.gravity.y = 250;
 
 		this.player.enableBody = true;
 		this.player.body.allowGravity=true;
 		this.player.body.drag.set(30);
 		this.player.body.maxVelocity.set(500);
-		this.player.body.collideWorldBounds = true;
+		// this.player.body.collideWorldBounds = true;
 		this.player.body.width = 90;
 		this.player.body.height = 120;
 
@@ -53,7 +53,9 @@ BasicGame.MainMenu.prototype = {
 	},
 
 	update: function () {
+		this.game.physics.arcade.collide(this.player, this.groundLayer);
 		this.move_player();
+		this.game.world.wrap(this.player, 0, false, true, false);
 	},
 
 	move_player: function() {
@@ -103,7 +105,7 @@ BasicGame.MainMenu.prototype = {
 		//	If the game container is resized this function will be called automatically.
 		//	You can use it to align sprites that should be fixed in place and other responsive display things.
 
-	    this.bg.width = width;
+		this.bg.width = this.game.world.width;
 	    this.bg.height = height;
 
 	    // this.spriteMiddle.x = this.game.world.centerX;
@@ -120,6 +122,10 @@ BasicGame.MainMenu.prototype = {
 	render: function() {
 
 		this.game.debug.body(this.player);
+		this.game.debug.body(this.groundLayer);
+		this.game.debug.text('Game Width:' + this.game.width, 33, 118);
+		this.game.debug.text('Ground Layer Width:' + this.groundLayer.width, 33, 136);
+		this.game.debug.text('Game World Width:' + this.game.world.width, 33, 156);
 		this.game.debug.inputInfo(32, 32);
 	}
 
