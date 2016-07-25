@@ -8,6 +8,7 @@ BasicGame.MainMenu = function (game) {
 	this.jumpTimer = 0;
 	this.map;
 	this.groundLayer;
+	this.playerSize = 0.10;
 
 };
 
@@ -27,7 +28,7 @@ BasicGame.MainMenu.prototype = {
 		this.map.setCollisionBetween(0, 700, true, 'ground');
 		this.player = this.game.add.sprite(90, 500, 'player');
 		this.player.anchor.setTo(0.5, 0.5);
-		this.player.scale.setTo(0.18, 0.18);
+		this.player.scale.setTo(this.playerSize, this.playerSize);
 		this.player.animations.add('idle', [ 1, 5, 7, 8, 2, 9, 14, 15, 3, 16 ], 4, true);
 		this.player.animations.add('walk', [ 31, 32, 33, 13, 20, 35, 36, 37, 39, 38 ], 8, true);
 		this.player.animations.add('run',  [ 18, 0, 12, 26, 28, 29, 30, 6, 27 , 34 ], 8, true);
@@ -36,15 +37,15 @@ BasicGame.MainMenu.prototype = {
 
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
-		this.game.physics.arcade.gravity.y = 250;
+		this.game.physics.arcade.gravity.y = 500;
 
 		this.player.enableBody = true;
 		this.player.body.allowGravity=true;
 		this.player.body.drag.set(30);
 		this.player.body.maxVelocity.set(500);
 		// this.player.body.collideWorldBounds = true;
-		this.player.body.width = 90;
-		this.player.body.height = 120;
+		this.player.body.width = 50;
+		this.player.body.height = 60;
 
 		this.game.camera.follow(this.player);
 		this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -68,7 +69,7 @@ BasicGame.MainMenu.prototype = {
 
 			if (this.facing != 'left') {
 				this.facing = 'left';
-				this.player.scale.setTo(-0.18, 0.18);
+				this.player.scale.setTo(-this.playerSize, this.playerSize);
 				this.player.animations.play('walk');
 			}
 		} else if (this.cursors.right.isDown) {
@@ -77,7 +78,7 @@ BasicGame.MainMenu.prototype = {
 
 			if (this.facing != 'right') {
 				this.facing = 'right';
-				this.player.scale.setTo(0.18, 0.18);
+				this.player.scale.setTo(this.playerSize, this.playerSize);
 				this.player.animations.play('walk');
 			}
 		} else {
@@ -85,9 +86,9 @@ BasicGame.MainMenu.prototype = {
 				this.player.animations.play('idle');
 
 				if (this.facing == 'left') {
-					this.player.scale.setTo(-0.18, 0.18);
+					this.player.scale.setTo(-this.playerSize, this.playerSize);
 				} else {
-					this.player.scale.setTo(0.18, 0.18);
+					this.player.scale.setTo(this.playerSize, this.playerSize);
 				}
 				this.facing = 'idle';
 			}
@@ -95,7 +96,7 @@ BasicGame.MainMenu.prototype = {
 
 		if (this.jumpButton.isDown && this.player.body.onFloor() && this.game.time.now > this.jumpTimer) {
 				this.player.animations.play('jump');
-				this.player.body.velocity.y = -250;
+				this.player.body.velocity.y = -390;
 				this.jumpTimer = this.game.time.now + 750;
 		}
 	},
