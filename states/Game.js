@@ -40,7 +40,8 @@ BasicGame.Game = function (game) {
 BasicGame.Game.prototype = {
 
     create: function () {
-        this.bg = this.add.tileSprite(0, 0, this.game.world.width * 4, this.game.height, 'background');
+        this.bg = this.add.tileSprite(0, 0, this.game.world.width * 4, this.game.world.height, 'background');
+
         this.map = this.game.add.tilemap('base_level');
         this.map.addTilesetImage('small_tiles');
         this.map.addTilesetImage('all_tiles');
@@ -101,6 +102,9 @@ BasicGame.Game.prototype = {
         this.cursors = this.game.input.keyboard.createCursorKeys();
         this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
+        var fullScreen = this.game.input.keyboard.addKey(Phaser.KeyCode.F);
+        fullScreen.onDown.add(this.fullScreen, this);
+
     },
 
     update: function () {
@@ -110,6 +114,14 @@ BasicGame.Game.prototype = {
         this.game.physics.arcade.overlap(this.player, this.treasures, this.displayTreasure, null, this);
         this.game.physics.arcade.overlap(this.seaCollision, this.player, this.sea_player_collision, null, this);
         this.move_player();
+    },
+
+    fullScreen: function() {
+        if (this.game.scale.isFullScreen) {
+            this.game.scale.stopFullScreen();
+        } else {
+            this.game.scale.startFullScreen(false);
+        }
     },
 
     displayTreasure: function(player, treasure) {
