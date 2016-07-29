@@ -6,6 +6,7 @@ BasicGame.MainMenu = function (game) {
 	this.player;
 	this.jumpButton;
 	this.jumpTimer = 0;
+	this.jumpCount = 0;
 	this.map;
 	this.groundLayer;
 	this.playerSize = 0.10;
@@ -41,15 +42,17 @@ BasicGame.MainMenu.prototype = {
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
 		this.game.physics.arcade.gravity.y = 500;
+		this.game.physics.arcade.setBoundsToWorld();
+		this.game.world.setBounds(0, 0, this.game.world.width, this.game.world.height);
 
 		this.player.enableBody = true;
 		this.player.body.allowGravity=true;
 		this.player.body.drag.set(30);
 		this.player.body.maxVelocity.set(500);
-		// this.player.body.collideWorldBounds = true;
 		this.player.body.width = 50;
 		this.player.body.height = 60;
-
+		this.player.checkWorldBounds = true;
+		this.player.events.onOutOfBounds.add(this.resetPlayer, this);
 		// Create floors group
 		// this.floors = this.game.add.group();
 		// this.floors.enableBody = true;
@@ -79,6 +82,10 @@ BasicGame.MainMenu.prototype = {
 		// this.game.physics.arcade.collide(this.crates, this.groundLayer);
 		this.move_player();
 		this.game.world.wrap(this.player, 0, false, true, false);
+	},
+
+	resetPlayer: function() {
+		this.player.reset(90, 500);
 	},
 
 	displayTreasure: function(player, treasure) {
@@ -120,10 +127,21 @@ BasicGame.MainMenu.prototype = {
 			}
 		}
 
-		if (this.jumpButton.isDown && this.player.body.onFloor() && this.game.time.now > this.jumpTimer) {
+		if (this.jumpButton.isDown) {
+			console.log(this.jumpCount);
+			if (this.player.body.onFloor() && this.game.time.now > this.jumpTimer) {
+				this.jumpCount = 0;
 				this.player.animations.play('jump');
 				this.player.body.velocity.y = -390;
 				this.jumpTimer = this.game.time.now + 750;
+				this.jumpCount += 1;
+			} else if ((!this.player.body.onFloor()) && this.game.time.now > this.jumpTimer && this.jumpCount < 2) {
+				this.player.animations.play('jump');
+				this.player.body.velocity.y = -390;
+				this.jumpTimer = this.game.time.now + 750;
+				this.jumpCount += 1;
+			}
+			if(this.jumpCount > 2) this.jumpCount = 0;
 		}
 	},
 
