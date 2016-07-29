@@ -34,6 +34,7 @@ BasicGame.Boot.prototype = {
         // Load all the Game Assets
         this.game.load.tilemap('base_level', '/assets/base_level.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('background', '/assets/images/bg/background.png');
+        this.game.load.image('me_semiround', '/assets/images/me_semiround.png');
 
         this.game.load.image('small_tiles', '/assets/tile_sets/small_tiles.png');
         this.game.load.image('chest', '/assets/tile_sets/chest.png');
