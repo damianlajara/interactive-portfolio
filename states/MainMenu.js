@@ -10,9 +10,7 @@ BasicGame.MainMenu = function (game) {
 	this.map;
 	this.groundLayer;
 	this.playerSize = 0.10;
-	this.floors;
 	this.treasures;
-	this.crates;
 
 };
 
@@ -22,17 +20,28 @@ BasicGame.MainMenu.prototype = {
         this.bg = this.add.tileSprite(0, 0, this.game.world.width * 4, this.game.height, 'background');
 		this.map = this.game.add.tilemap('base_level');
 		this.map.addTilesetImage('small_tiles');
-		this.map.addTilesetImage('chest');
 		this.map.addTilesetImage('all_tiles');
+		this.map.addTilesetImage('crate');
+		this.map.addTilesetImage('chest');
 		this.map.createLayer('trees');
 		this.groundLayer = this.map.createLayer('ground');
+		console.log("Ground Layer: ", this.groundLayer);
 		this.groundLayer.debug = true;
 		this.groundLayer.resizeWorld();
 
-		this.map.setCollisionBetween(0, 700, true, 'ground');
+		this.map.setCollisionBetween(0, 1033, true, 'ground');
+
+		// Create the treasures group
+		this.treasures = this.game.add.group();
+		this.treasures.enableBody = true;
+
+		// Display Treasures
+		this.map.createFromObjects('collision', 6, 'chest', false, true, false, this.treasures);
+
 		this.player = this.game.add.sprite(90, 500, 'player');
 		this.player.anchor.setTo(0.5, 0.5);
 		this.player.scale.setTo(this.playerSize, this.playerSize);
+
 		this.player.animations.add('idle', [ 1, 5, 7, 8, 2, 9, 14, 15, 3, 16 ], 4, true);
 		this.player.animations.add('walk', [ 31, 32, 33, 13, 20, 35, 36, 37, 39, 38 ], 8, true);
 		this.player.animations.add('run',  [ 18, 0, 12, 26, 28, 29, 30, 6, 27 , 34 ], 8, true);
@@ -53,22 +62,6 @@ BasicGame.MainMenu.prototype = {
 		this.player.body.height = 60;
 		this.player.checkWorldBounds = true;
 		this.player.events.onOutOfBounds.add(this.resetPlayer, this);
-		// Create floors group
-		// this.floors = this.game.add.group();
-		// this.floors.enableBody = true;
-
-		// Create the treasures group
-		this.treasures = this.game.add.group();
-		this.treasures.enableBody = true;
-
-		// Create the crates group
-		// this.crates = this.game.add.group();
-		// this.crates.enableBody = true;
-
-		// Display objects
-		this.map.createFromObjects('collision', 6, 'chest', false, true, false, this.treasures);
-		// this.map.createFromObjects('collision', 1031, 'crate', false, true, false, this.crates);
-
 		this.game.camera.follow(this.player);
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 		this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -79,7 +72,6 @@ BasicGame.MainMenu.prototype = {
 		this.game.physics.arcade.collide(this.player, this.groundLayer);
 		this.game.physics.arcade.collide(this.treasures, this.groundLayer);
 		this.game.physics.arcade.overlap(this.player, this.treasures, this.displayTreasure, null, this);
-		// this.game.physics.arcade.collide(this.crates, this.groundLayer);
 		this.move_player();
 		this.game.world.wrap(this.player, 0, false, true, false);
 	},
@@ -93,7 +85,8 @@ BasicGame.MainMenu.prototype = {
 	},
 
 	move_player: function() {
-		// Implement Running Functionality
+		// TODO: Implement Running Functionality
+
 		this.player.body.velocity.x = 0;
 
 		if (this.cursors.left.isDown) {
@@ -130,18 +123,16 @@ BasicGame.MainMenu.prototype = {
 		if (this.jumpButton.isDown) {
 			console.log(this.jumpCount);
 			if (this.player.body.onFloor() && this.game.time.now > this.jumpTimer) {
-				this.jumpCount = 0;
+				this.jumpCount = 0; // Reset count every time we touch the floor
 				this.player.animations.play('jump');
-				this.player.body.velocity.y = -390;
-				this.jumpTimer = this.game.time.now + 750;
+				this.player.body.velocity.y = -290;
+				this.jumpTimer = this.game.time.now + 350;
 				this.jumpCount += 1;
 			} else if ((!this.player.body.onFloor()) && this.game.time.now > this.jumpTimer && this.jumpCount < 2) {
 				this.player.animations.play('jump');
-				this.player.body.velocity.y = -390;
-				this.jumpTimer = this.game.time.now + 750;
+				this.player.body.velocity.y = -290;
 				this.jumpCount += 1;
 			}
-			if(this.jumpCount > 2) this.jumpCount = 0;
 		}
 	},
 
