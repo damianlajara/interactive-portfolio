@@ -42,11 +42,13 @@ BasicGame.MainMenu.prototype = {
 		this.player.anchor.setTo(0.5, 0.5);
 		this.player.scale.setTo(this.playerSize, this.playerSize);
 
-		this.player.animations.add('idle', [ 1, 5, 7, 8, 2, 9, 14, 15, 3, 16 ], 4, true);
-		this.player.animations.add('walk', [ 31, 32, 33, 13, 20, 35, 36, 37, 39, 38 ], 8, true);
-		this.player.animations.add('run',  [ 18, 0, 12, 26, 28, 29, 30, 6, 27 , 34 ], 8, true);
-		this.player.animations.add('jump', [ 10, 17, 21, 22, 23, 24, 4, 11, 25 , 19 ], 8, false);
-        // this.player.animations.add('dead', [ 10, 17, 21, 22, 23, 24, 4, 11, 25 , 19 ], 8, false);
+        // Used https://www.leshylabs.com/apps/sstool/ to generate Atlas Map
+        this.player.animations.add('walk', Phaser.Animation.generateFrameNames('Walk', 1, 10), 8, true);
+        this.player.animations.add('run', Phaser.Animation.generateFrameNames('Run', 1, 10), 8, true);
+        this.player.animations.add('idle', Phaser.Animation.generateFrameNames('Idle', 1, 10), 4, true);
+        this.player.animations.add('attack', Phaser.Animation.generateFrameNames('Attack', 1, 10), 12, false);
+        this.player.animations.add('jump', Phaser.Animation.generateFrameNames('Jump', 1, 10), 8, false);
+        this.player.animations.add('dead', Phaser.Animation.generateFrameNames('Dead', 1, 10), 8, false);
 
 
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -61,8 +63,6 @@ BasicGame.MainMenu.prototype = {
 		this.player.body.maxVelocity.set(500);
 		this.player.body.width = 50;
 		this.player.body.height = 60;
-		this.player.checkWorldBounds = true;
-		this.player.events.onOutOfBounds.add(this.resetPlayer, this);
 
         // Until I figure out how to set collision with polylines from Tiled, use this hack where I create a static null
         // Sprite, from which I can check overlaps with
@@ -81,25 +81,29 @@ BasicGame.MainMenu.prototype = {
 	},
 
 	update: function () {
+		this.game.world.wrap(this.player, 0, false, true, false);
 		this.game.physics.arcade.collide(this.player, this.groundLayer);
 		this.game.physics.arcade.collide(this.treasures, this.groundLayer);
 		this.game.physics.arcade.overlap(this.player, this.treasures, this.displayTreasure, null, this);
         this.game.physics.arcade.overlap(this.seaCollision, this.player, this.sea_player_collision);
 		this.move_player();
-		this.game.world.wrap(this.player, 0, false, true, false);
-	},
-
-	resetPlayer: function() {
-		this.player.reset(90, 500);
 	},
 
 	displayTreasure: function(player, treasure) {
 		console.log(treasure.name);
+        player.animations.play('attack');
 	},
 
     sea_player_collision: function(sea, player) {
 	    console.log("Player fell into the sea!");
-        // player.animations.play('dead');
+        player.animations.play('dead');
+        player.body.velocity.y = -330;
+
+        // Wait about a second for the animation to finish then reset the player's position
+        player.game.time.events.add(1200, function() {
+            player.reset(90, 500);
+            player.animations.play('idle');
+        });
     },
 
 	move_player: function() {

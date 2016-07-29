@@ -28,7 +28,8 @@ BasicGame.Boot.prototype = {
         var textStyle = {font: '45px Arial', alight: 'center', stroke: 'blue', fill: 'blue'};
 
         this.game.add.text(80, 150, 'loading...', textStyle);
-        this.game.load.spritesheet('player', '/assets/sprites/player/player.png', 587, 707, 40);
+        this.game.load.atlas('player', 'assets/sprites/player/full_player.png', 'assets/sprites/player/full_player.json');
+        // this.game.load.spritesheet('player', '/assets/sprites/player/player.png', 587, 707, 40);
 
         // Load all the Game Assets
         this.game.load.tilemap('base_level', '/assets/base_level.json', null, Phaser.Tilemap.TILED_JSON);
