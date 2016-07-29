@@ -119,66 +119,6 @@
                  "y":136
                 }, 
                 {
-                 "height":224,
-                 "id":47,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"floor",
-                 "visible":true,
-                 "width":312,
-                 "x":0,
-                 "y":128
-                }, 
-                {
-                 "height":96,
-                 "id":49,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"floor",
-                 "visible":true,
-                 "width":256,
-                 "x":704,
-                 "y":584
-                }, 
-                {
-                 "height":72,
-                 "id":51,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"floor",
-                 "visible":true,
-                 "width":384,
-                 "x":1600,
-                 "y":608
-                }, 
-                {
-                 "height":264,
-                 "id":56,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"floor",
-                 "visible":true,
-                 "width":256,
-                 "x":1728,
-                 "y":128
-                }, 
-                {
                  "height":0,
                  "id":61,
                  "name":"",
@@ -296,58 +236,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":65,
-                 "name":"",
-                 "polyline":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":248,
-                         "y":0
-                        }, 
-                        {
-                         "x":248,
-                         "y":40
-                        }, 
-                        {
-                         "x":201.5,
-                         "y":64
-                        }, 
-                        {
-                         "x":147.25,
-                         "y":96
-                        }, 
-                        {
-                         "x":77.5,
-                         "y":88
-                        }, 
-                        {
-                         "x":48,
-                         "y":56
-                        }, 
-                        {
-                         "x":16,
-                         "y":48
-                        }, 
-                        {
-                         "x":0,
-                         "y":8
-                        }],
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"floor",
-                 "visible":true,
-                 "width":0,
-                 "x":1376,
-                 "y":96
-                }, 
-                {
-                 "height":0,
                  "id":67,
                  "name":"",
                  "polyline":[
@@ -416,21 +304,6 @@
                  "width":1984,
                  "x":0,
                  "y":680
-                }, 
-                {
-                 "height":128,
-                 "id":124,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"floor",
-                 "visible":true,
-                 "width":256,
-                 "x":384,
-                 "y":64
                 }, 
                 {
                  "height":0,
@@ -503,62 +376,6 @@
                  "width":0,
                  "x":1056,
                  "y":512
-                }, 
-                {
-                 "height":0,
-                 "id":127,
-                 "name":"",
-                 "polyline":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":256,
-                         "y":0
-                        }, 
-                        {
-                         "x":248,
-                         "y":40
-                        }, 
-                        {
-                         "x":208,
-                         "y":56
-                        }, 
-                        {
-                         "x":176,
-                         "y":88
-                        }, 
-                        {
-                         "x":112,
-                         "y":96
-                        }, 
-                        {
-                         "x":72,
-                         "y":80
-                        }, 
-                        {
-                         "x":48,
-                         "y":56
-                        }, 
-                        {
-                         "x":16,
-                         "y":48
-                        }, 
-                        {
-                         "x":0,
-                         "y":8
-                        }],
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"floor",
-                 "visible":true,
-                 "width":0,
-                 "x":704,
-                 "y":192
                 }, 
                 {
                  "gid":1031,
@@ -655,6 +472,330 @@
                  "width":72,
                  "x":1600,
                  "y":608
+                }, 
+                {
+                 "height":0,
+                 "id":173,
+                 "name":"",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":256,
+                         "y":0
+                        }, 
+                        {
+                         "x":256,
+                         "y":32
+                        }, 
+                        {
+                         "x":248,
+                         "y":32
+                        }, 
+                        {
+                         "x":248,
+                         "y":48
+                        }, 
+                        {
+                         "x":208,
+                         "y":56
+                        }, 
+                        {
+                         "x":192,
+                         "y":80
+                        }, 
+                        {
+                         "x":152,
+                         "y":88
+                        }, 
+                        {
+                         "x":88,
+                         "y":88
+                        }, 
+                        {
+                         "x":48,
+                         "y":56
+                        }, 
+                        {
+                         "x":8,
+                         "y":48
+                        }, 
+                        {
+                         "x":0,
+                         "y":16
+                        }, 
+                        {
+                         "x":0,
+                         "y":0
+                        }],
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"floor",
+                 "visible":true,
+                 "width":0,
+                 "x":704,
+                 "y":192
+                }, 
+                {
+                 "height":0,
+                 "id":175,
+                 "name":"",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":256,
+                         "y":0
+                        }, 
+                        {
+                         "x":256,
+                         "y":96
+                        }, 
+                        {
+                         "x":0,
+                         "y":96
+                        }, 
+                        {
+                         "x":0,
+                         "y":0
+                        }],
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"floor",
+                 "visible":true,
+                 "width":0,
+                 "x":704,
+                 "y":576
+                }, 
+                {
+                 "height":0,
+                 "id":177,
+                 "name":"",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":320,
+                         "y":0
+                        }, 
+                        {
+                         "x":320,
+                         "y":216
+                        }, 
+                        {
+                         "x":304,
+                         "y":224
+                        }, 
+                        {
+                         "x":8,
+                         "y":224
+                        }, 
+                        {
+                         "x":0,
+                         "y":0
+                        }],
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"floor",
+                 "visible":true,
+                 "width":0,
+                 "x":0,
+                 "y":128
+                }, 
+                {
+                 "height":0,
+                 "id":180,
+                 "name":"",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":384,
+                         "y":0
+                        }, 
+                        {
+                         "x":384,
+                         "y":88
+                        }, 
+                        {
+                         "x":80,
+                         "y":88
+                        }, 
+                        {
+                         "x":48,
+                         "y":56
+                        }, 
+                        {
+                         "x":8,
+                         "y":48
+                        }, 
+                        {
+                         "x":0,
+                         "y":0
+                        }],
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"floor",
+                 "visible":true,
+                 "width":0,
+                 "x":1600,
+                 "y":608
+                }, 
+                {
+                 "height":0,
+                 "id":181,
+                 "name":"",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":248
+                        }, 
+                        {
+                         "x":24,
+                         "y":256
+                        }, 
+                        {
+                         "x":256,
+                         "y":256
+                        }, 
+                        {
+                         "x":256,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":0
+                        }],
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"floor",
+                 "visible":true,
+                 "width":0,
+                 "x":1728,
+                 "y":128
+                }, 
+                {
+                 "height":0,
+                 "id":182,
+                 "name":"",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":256,
+                         "y":0
+                        }, 
+                        {
+                         "x":256,
+                         "y":32
+                        }, 
+                        {
+                         "x":240,
+                         "y":56
+                        }, 
+                        {
+                         "x":208,
+                         "y":56
+                        }, 
+                        {
+                         "x":184,
+                         "y":80
+                        }, 
+                        {
+                         "x":136,
+                         "y":96
+                        }, 
+                        {
+                         "x":80,
+                         "y":88
+                        }, 
+                        {
+                         "x":48,
+                         "y":56
+                        }, 
+                        {
+                         "x":8,
+                         "y":48
+                        }, 
+                        {
+                         "x":0,
+                         "y":0
+                        }],
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"floor",
+                 "visible":true,
+                 "width":0,
+                 "x":1376,
+                 "y":96
+                }, 
+                {
+                 "height":0,
+                 "id":183,
+                 "name":"",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":256,
+                         "y":0
+                        }, 
+                        {
+                         "x":256,
+                         "y":128
+                        }, 
+                        {
+                         "x":0,
+                         "y":128
+                        }, 
+                        {
+                         "x":0,
+                         "y":0
+                        }],
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"floor",
+                 "visible":true,
+                 "width":0,
+                 "x":384,
+                 "y":64
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -663,7 +804,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":171,
+ "nextobjectid":184,
  "orientation":"orthogonal",
  "properties":
     {
@@ -690,7 +831,7 @@
         }, 
         {
          "firstgid":2,
-         "image":"tile_sets\/small_tiles.png",
+         "image":"..\/..\/Responsive copy\/assets\/tile_sets\/small_tiles.png",
          "imageheight":378,
          "imagewidth":128,
          "margin":0,
@@ -706,7 +847,7 @@
         }, 
         {
          "firstgid":6,
-         "image":"tile_sets\/chest.png",
+         "image":"..\/..\/Responsive copy\/assets\/tile_sets\/chest.png",
          "imageheight":64,
          "imagewidth":64,
          "margin":0,
@@ -722,7 +863,7 @@
         }, 
         {
          "firstgid":7,
-         "image":"tile_sets\/ground_tiles.png",
+         "image":"..\/..\/tiles\/ground_tiles.png",
          "imageheight":1024,
          "imagewidth":1024,
          "margin":0,
