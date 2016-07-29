@@ -108,7 +108,7 @@ BasicGame.Game.prototype = {
         this.game.physics.arcade.collide(this.player, this.groundLayer);
         this.game.physics.arcade.collide(this.treasures, this.groundLayer);
         this.game.physics.arcade.overlap(this.player, this.treasures, this.displayTreasure, null, this);
-        this.game.physics.arcade.overlap(this.seaCollision, this.player, this.sea_player_collision);
+        this.game.physics.arcade.overlap(this.seaCollision, this.player, this.sea_player_collision, null, this);
         this.move_player();
     },
 
@@ -117,8 +117,28 @@ BasicGame.Game.prototype = {
         player.animations.play('attack');
     },
 
+    disableCursors: function() {
+        this.cursors.left.enabled = false;
+        this.cursors.down.enabled = false;
+        this.cursors.up.enabled = false;
+        this.cursors.right.enabled = false;
+    },
+
+    enableCursors: function() {
+        this.cursors.left.enabled = true;
+        this.cursors.down.enabled = true;
+        this.cursors.up.enabled = true;
+        this.cursors.right.enabled = true;
+    },
+
+    // Alias method
+    resetCursors: function() {
+      this.enableCursors();
+    },
+
     sea_player_collision: function(sea, player) {
         console.log("Player fell into the sea!");
+        this.disableCursors();
         player.animations.play('dead');
         player.body.velocity.y = -330;
 
@@ -126,7 +146,8 @@ BasicGame.Game.prototype = {
         player.game.time.events.add(1200, function() {
             player.reset(90, 500);
             player.animations.play('idle');
-        });
+            this.resetCursors();
+        }, this);
     },
 
     move_player: function() {
@@ -174,7 +195,7 @@ BasicGame.Game.prototype = {
                 this.jumpCount += 1;
             } else if ((!this.player.body.onFloor()) && this.game.time.now > this.jumpTimer && this.jumpCount < 2) {
                 this.player.animations.play('jump');
-                this.player.body.velocity.y = -290;
+                this.player.body.velocity.y = -310;
                 this.jumpCount += 1;
             }
         }
