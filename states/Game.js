@@ -102,6 +102,7 @@ BasicGame.Game.prototype = {
         this.cursors = this.game.input.keyboard.createCursorKeys();
         this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
+        this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
         var fullScreen = this.game.input.keyboard.addKey(Phaser.KeyCode.F);
         fullScreen.onDown.add(this.fullScreen, this);
 
