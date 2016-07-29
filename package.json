@@ -1,0 +1,26 @@
+{
+  "name": "interactive-portfolio",
+  "version": "1.0.0",
+  "description": "A Phaser game implementation of my portfolio",
+  "main": "bin/serve.js",
+  "bin": {
+    "interactive-portfolio": "serve.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damianlajara/interactive-portfolio.git"
+  },
+  "keywords": [],
+  "author": "Damian Lajara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/damianlajara/interactive-portfolio/issues"
+  },
+  "homepage": "https://github.com/damianlajara/interactive-portfolio#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}

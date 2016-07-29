@@ -78,8 +78,6 @@ BasicGame.Game.prototype = {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
         this.game.physics.arcade.gravity.y = 500;
-        this.game.physics.arcade.setBoundsToWorld();
-        this.game.world.setBounds(0, 0, this.game.world.width, this.game.world.height);
 
         this.player.enableBody = true;
         this.player.body.allowGravity=true;
