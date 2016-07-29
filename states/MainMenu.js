@@ -11,7 +11,7 @@ BasicGame.MainMenu = function (game) {
 	this.groundLayer;
 	this.playerSize = 0.10;
 	this.treasures;
-
+    this.seaCollision
 };
 
 BasicGame.MainMenu.prototype = {
@@ -25,7 +25,7 @@ BasicGame.MainMenu.prototype = {
 		this.map.addTilesetImage('chest');
 		this.map.createLayer('trees');
 		this.groundLayer = this.map.createLayer('ground');
-		console.log("Ground Layer: ", this.groundLayer);
+		// console.log("Ground Layer: ", this.groundLayer);
 		this.groundLayer.debug = true;
 		this.groundLayer.resizeWorld();
 
@@ -46,6 +46,7 @@ BasicGame.MainMenu.prototype = {
 		this.player.animations.add('walk', [ 31, 32, 33, 13, 20, 35, 36, 37, 39, 38 ], 8, true);
 		this.player.animations.add('run',  [ 18, 0, 12, 26, 28, 29, 30, 6, 27 , 34 ], 8, true);
 		this.player.animations.add('jump', [ 10, 17, 21, 22, 23, 24, 4, 11, 25 , 19 ], 8, false);
+        // this.player.animations.add('dead', [ 10, 17, 21, 22, 23, 24, 4, 11, 25 , 19 ], 8, false);
 
 
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -62,7 +63,18 @@ BasicGame.MainMenu.prototype = {
 		this.player.body.height = 60;
 		this.player.checkWorldBounds = true;
 		this.player.events.onOutOfBounds.add(this.resetPlayer, this);
-		this.game.camera.follow(this.player);
+
+        // Until I figure out how to set collision with polylines from Tiled, use this hack where I create a static null
+        // Sprite, from which I can check overlaps with
+        this.seaCollision = this.game.add.sprite(0, 0, null);
+        this.game.physics.enable(this.seaCollision, Phaser.Physics.ARCADE);
+        this.seaCollision.enableBody = true;
+        this.seaCollision.body.allowGravity=false;
+        this.seaCollision.body.immovable = true;
+        this.seaCollision.body.moves = false;
+        this.seaCollision.body.setSize(this.game.world.width, 210, 0, this.game.world.height - 216); // set the size of the rectangle
+
+        this.game.camera.follow(this.player);
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 		this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -72,6 +84,7 @@ BasicGame.MainMenu.prototype = {
 		this.game.physics.arcade.collide(this.player, this.groundLayer);
 		this.game.physics.arcade.collide(this.treasures, this.groundLayer);
 		this.game.physics.arcade.overlap(this.player, this.treasures, this.displayTreasure, null, this);
+        this.game.physics.arcade.overlap(this.seaCollision, this.player, this.sea_player_collision);
 		this.move_player();
 		this.game.world.wrap(this.player, 0, false, true, false);
 	},
@@ -83,6 +96,11 @@ BasicGame.MainMenu.prototype = {
 	displayTreasure: function(player, treasure) {
 		console.log(treasure.name);
 	},
+
+    sea_player_collision: function(sea, player) {
+	    console.log("Player fell into the sea!");
+        // player.animations.play('dead');
+    },
 
 	move_player: function() {
 		// TODO: Implement Running Functionality
@@ -121,7 +139,6 @@ BasicGame.MainMenu.prototype = {
 		}
 
 		if (this.jumpButton.isDown) {
-			console.log(this.jumpCount);
 			if (this.player.body.onFloor() && this.game.time.now > this.jumpTimer) {
 				this.jumpCount = 0; // Reset count every time we touch the floor
 				this.player.animations.play('jump');
@@ -148,6 +165,7 @@ BasicGame.MainMenu.prototype = {
 	render: function() {
 
 		this.game.debug.body(this.player);
+        this.game.debug.body(this.seaCollision);
 		this.game.debug.body(this.groundLayer);
 		this.game.debug.text('Game Width:' + this.game.width, 33, 118);
 		this.game.debug.text('Ground Layer Width:' + this.groundLayer.width, 33, 136);
