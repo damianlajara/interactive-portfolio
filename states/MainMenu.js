@@ -9,6 +9,9 @@ BasicGame.MainMenu = function (game) {
 	this.map;
 	this.groundLayer;
 	this.playerSize = 0.10;
+	this.floors;
+	this.treasures;
+	this.crates;
 
 };
 
@@ -47,6 +50,22 @@ BasicGame.MainMenu.prototype = {
 		this.player.body.width = 50;
 		this.player.body.height = 60;
 
+		// Create floors group
+		// this.floors = this.game.add.group();
+		// this.floors.enableBody = true;
+
+		// Create the treasures group
+		this.treasures = this.game.add.group();
+		this.treasures.enableBody = true;
+
+		// Create the crates group
+		// this.crates = this.game.add.group();
+		// this.crates.enableBody = true;
+
+		// Display objects
+		this.map.createFromObjects('collision', 6, 'chest', false, true, false, this.treasures);
+		// this.map.createFromObjects('collision', 1031, 'crate', false, true, false, this.crates);
+
 		this.game.camera.follow(this.player);
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 		this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -55,8 +74,15 @@ BasicGame.MainMenu.prototype = {
 
 	update: function () {
 		this.game.physics.arcade.collide(this.player, this.groundLayer);
+		this.game.physics.arcade.collide(this.treasures, this.groundLayer);
+		this.game.physics.arcade.overlap(this.player, this.treasures, this.displayTreasure, null, this);
+		// this.game.physics.arcade.collide(this.crates, this.groundLayer);
 		this.move_player();
 		this.game.world.wrap(this.player, 0, false, true, false);
+	},
+
+	displayTreasure: function(player, treasure) {
+		console.log(treasure.name);
 	},
 
 	move_player: function() {
@@ -108,16 +134,6 @@ BasicGame.MainMenu.prototype = {
 
 		this.bg.width = this.game.world.width;
 	    this.bg.height = height;
-
-	    // this.spriteMiddle.x = this.game.world.centerX;
-	    // this.spriteMiddle.y = this.game.world.centerY;
-        //
-	    // this.spriteTopRight.x = this.game.width;
-	    // this.spriteBottomLeft.y = this.game.height;
-        //
-	    // this.spriteBottomRight.x = this.game.width;
-	    // this.spriteBottomRight.y = this.game.height;
-
 	},
 
 	render: function() {
@@ -131,57 +147,3 @@ BasicGame.MainMenu.prototype = {
 	}
 
 };
-
-
-
-
-
-// this.player.body.velocity.x = 0;
-//
-// if (this.cursors.left.isDown)
-// {
-// 	this.player.body.acceleration.x = -50;
-// 	this.player.body.velocity.x = -150;
-//
-//
-// 	if (this.facing != 'left')
-// 	{
-// 		this.player.animations.play('left');
-// 		this.facing = 'left';
-// 	}
-// }
-// else if (this.cursors.right.isDown)
-// {
-// 	this.player.body.acceleration.x = 150;
-// 	this.player.body.velocity.x = 150;
-//
-// 	if (this.facing != 'right')
-// 	{
-// 		this.player.animations.play('right');
-// 		this.facing = 'right';
-// 	}
-// }
-// else
-// {
-// 	if (this.facing != 'idle')
-// 	{
-// 		this.player.animations.stop();
-//
-// 		if (this.facing == 'left')
-// 		{
-// 			this.player.frame = 0;
-// 		}
-// 		else
-// 		{
-// 			this.player.frame = 5;
-// 		}
-//
-// 		this.facing = 'idle';
-// 	}
-// }
-//
-// if (this.jumpButton.isDown && this.player.body.onFloor() && this.game.time.now > this.jumpTimer)
-// {
-// 	this.player.body.velocity.y = -250;
-// 	this.jumpTimer = game.time.now + 750;
-// }

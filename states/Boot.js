@@ -36,6 +36,7 @@ BasicGame.Boot.prototype = {
 
         this.game.load.image('small_tiles', '/assets/tile_sets/small_tiles.png');
         this.game.load.image('chest', '/assets/tile_sets/chest.png');
+        this.game.load.image('crate', '/assets/tile_sets/crate.png');
         this.game.load.image('all_tiles', '/assets/tile_sets/ground_tiles.png');
 
     },
