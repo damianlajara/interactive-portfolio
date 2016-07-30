@@ -6,10 +6,10 @@ var app = express();
 
 app.use(express.static(path.join(__dirname, '../build/')));
 
-app.get('*', function(request, response) {
-    response.sendFile(path.join(__dirname + '/../build/index.html'));
+app.get('/', function(request, response) {
+    response.sendFile(path.join(__dirname + '/../build/index.html'), {root: __dirname} );
 });
 
 app.listen(port, function() {
-    console.log("Listening on " + port);
+    console.log("Server running and listening on " + port);
 });

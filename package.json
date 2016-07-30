@@ -14,6 +14,7 @@
     "postinstall": "gulp build --production",
     "start": "node bin/serve.js",
     "run": "gulp",
+    "play": "gulp build && node bin/serve.js",
     "production": "gulp build --production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
