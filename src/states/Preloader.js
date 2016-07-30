@@ -1,16 +1,7 @@
+import Phaser from 'phaser';
 
-BasicGame.Preloader = function (game) {
-
-	this.background = null;
-	this.preloadBar = null;
-
-	this.ready = false;
-
-};
-
-BasicGame.Preloader.prototype = {
-
-	preload: function () {
+export class Preloader extends Phaser.State{
+	preload() {
 
         // //	These are the assets we loaded in Boot.js
         // //	A nice sparkly background and a loading progress bar
@@ -32,15 +23,10 @@ BasicGame.Preloader.prototype = {
 	    // this.load.image('tetris3', 'assets/sprites/tetrisblock3.png');
 	    // this.load.image('hotdog', 'assets/sprites/hotdog.png');
 	    // this.load.image('starfield', 'assets/skies/deep-space.jpg');
-
-
-
-	},
-
-	create: function () {
-
-		this.state.start('MainMenu');
-
 	}
 
-};
+	create() {
+		this.state.start('MainMenu');
+	}
+
+}
