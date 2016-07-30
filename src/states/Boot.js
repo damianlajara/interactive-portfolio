@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 export class Boot extends Phaser.State {
         init() {
             //  Unless you specifically know your game needs to support multi-touch I would recommend setting this to 1
@@ -19,18 +18,18 @@ export class Boot extends Phaser.State {
             var textStyle = {font: '45px Arial', alight: 'center', stroke: 'blue', fill: 'blue'};
 
             this.game.add.text(80, 150, 'loading...', textStyle);
-            this.game.load.atlas('player', 'assets/sprites/player/full_player.png', 'assets/sprites/player/full_player.json');
+            this.game.load.atlas('player', '../assets/sprites/player/full_player.png', 'assets/sprites/player/full_player.json');
             // this.game.load.spritesheet('player', '/assets/sprites/player/player.png', 587, 707, 40);
 
             // Load all the Game Assets
-            this.game.load.tilemap('base_level', '/assets/base_level.json', null, Phaser.Tilemap.TILED_JSON);
-            this.game.load.image('background', '/assets/images/bg/background.png');
-            this.game.load.image('me_semiround', '/assets/images/me_semiround.png');
+            this.game.load.tilemap('base_level', '../assets/base_level.json', null, Phaser.Tilemap.TILED_JSON);
+            this.game.load.image('background', '../assets/images/bg/background.png');
+            this.game.load.image('me_semiround', '../assets/images/me_semiround.png');
 
-            this.game.load.image('small_tiles', '/assets/tile_sets/small_tiles.png');
-            this.game.load.image('chest', '/assets/tile_sets/chest.png');
-            this.game.load.image('crate', '/assets/tile_sets/crate.png');
-            this.game.load.image('all_tiles', '/assets/tile_sets/ground_tiles.png');
+            this.game.load.image('small_tiles', '../assets/tile_sets/small_tiles.png');
+            this.game.load.image('chest', '../assets/tile_sets/chest.png');
+            this.game.load.image('crate', '../assets/tile_sets/crate.png');
+            this.game.load.image('all_tiles', '../assets/tile_sets/ground_tiles.png');
         }
 
         create() {

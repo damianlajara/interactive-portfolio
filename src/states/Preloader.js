@@ -1,5 +1,3 @@
-import Phaser from 'phaser';
-
 export class Preloader extends Phaser.State{
 	preload() {
 

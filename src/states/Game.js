@@ -36,8 +36,6 @@
 //     this.seaCollision
 // };
 
-import Phaser from 'phaser';
-
 export class Game extends Phaser.State {
     create() {
         this.jumpTimer = 0;

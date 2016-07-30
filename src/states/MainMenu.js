@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 export class MainMenu extends Phaser.State {
     create() {
         let background = this.add.sprite(0, 0, 'background');

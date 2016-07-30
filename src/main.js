@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 import { Boot } from './states/Boot';
 import { Preloader } from './states/Preloader';
 import { MainMenu } from './states/MainMenu';
@@ -7,7 +6,7 @@ import { Game } from './states/Game';
 export class MainGame extends Phaser.Game {
     constructor() {
         //	100% of the browser window - see Boot.js for additional configuration
-        super("100%", "100%", Phaser.AUTO, '');
+        super("100%", "100%", Phaser.AUTO, 'portfolio_game');
 
         //	Add the States your game has.
         //	You don't have to do this in the html, it could be done in your Boot state too, but for simplicity I'll keep it here.
