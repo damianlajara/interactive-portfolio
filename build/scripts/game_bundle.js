@@ -140,43 +140,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// BasicGame.Game = function (game) {
-//
-// 	//	When a State is added to Phaser it automatically has the following properties set on it, even if they already exist:
-//
-//     this.game;		//	a reference to the currently running game
-//     this.add;		//	used to add sprites, text, groups, etc
-//     this.camera;	//	a reference to the game camera
-//     this.cache;		//	the game cache
-//     this.input;		//	the global input manager (you can access this.input.keyboard, this.input.mouse, as well from it)
-//     this.load;		//	for preloading assets
-//     this.math;		//	lots of useful common math operations
-//     this.sound;		//	the sound manager - add a sound, play one, set-up markers, etc
-//     this.stage;		//	the game stage
-//     this.time;		//	the clock
-//     this.tweens;    //  the tween manager
-//     this.state;	    //	the state manager
-//     this.world;		//	the game world
-//     this.particles;	//	the particle manager
-//     this.physics;	//	the physics manager
-//     this.rnd;		//	the repeatable random number generator
-//
-//     //	You can use any of these from any function within this State.
-//     //	But do consider them as being 'reserved words', i.e. don't create a property for your own game called "world" or you'll over-write the world reference.
-//
-//     this.bg;
-//     this.cursors;
-//     this.player;
-//     this.jumpButton;
-//     this.jumpTimer = 0;
-//     this.jumpCount = 0;
-//     this.map;
-//     this.groundLayer;
-//     this.playerSize = 0.10;
-//     this.treasures;
-//     this.seaCollision
-// };
-
 var Game = exports.Game = function (_Phaser$State) {
     _inherits(Game, _Phaser$State);
 
@@ -255,6 +218,12 @@ var Game = exports.Game = function (_Phaser$State) {
             this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
             var fullScreen = this.game.input.keyboard.addKey(Phaser.KeyCode.F);
             fullScreen.onDown.add(this.fullScreen, this);
+
+            this.reg = {};
+
+            // initiate the modal class
+            this.reg.modal = new gameModal(this.game);
+            this.createModals();
         }
     }, {
         key: 'update',
@@ -262,9 +231,71 @@ var Game = exports.Game = function (_Phaser$State) {
             this.game.world.wrap(this.player, 0, false, true, false);
             this.game.physics.arcade.collide(this.player, this.groundLayer);
             this.game.physics.arcade.collide(this.treasures, this.groundLayer);
-            this.game.physics.arcade.overlap(this.player, this.treasures, this.displayTreasure, null, this);
+            var overlap = this.game.physics.arcade.overlap(this.player, this.treasures, this.displayTreasure, null, this);
+            if (!overlap) {
+                this.hideVisibleModals();
+            }
             this.game.physics.arcade.overlap(this.seaCollision, this.player, this.sea_player_collision, null, this);
             this.move_player();
+        }
+
+        // Create a custom modal for every project
+
+    }, {
+        key: 'createModals',
+        value: function createModals() {
+            this.reg.modal.createModal({
+                type: "Ruby Adventure",
+                includeBackground: true,
+                modalCloseOnInput: true,
+                itemsArr: [{
+                    type: "text",
+                    content: "Ruby Adventure",
+                    fontSize: 42,
+                    color: "0xFEFF49",
+                    offsetY: 50
+                }]
+            });
+        }
+
+        // Show the modal on the screen
+
+    }, {
+        key: 'showModal',
+        value: function showModal(type) {
+            console.log("showing " + type);
+            this.reg.modal.showModal(type);
+        }
+
+        // Since these are usually called in collision callbacks, we have no way of knowing the name of the modal
+        // Therefore find all 'visible' modals, which would only be one at a time, and hide it
+
+    }, {
+        key: 'hideVisibleModals',
+        value: function hideVisibleModals() {
+            var modals = this.game.modals;
+            var visibleModals = Object.keys(modals).map(function (key) {
+                var modal = modals[key];
+                if (modal.alive && modal.visible == true) {
+                    return key.toString();
+                } else {
+                    return null;
+                }
+            }, this).filter(function (name) {
+                return name != null;
+            });
+            visibleModals.forEach(function (visibleModal) {
+                console.log('hiding ' + visibleModals);
+                this.hideModal(visibleModal);
+            }, this);
+        }
+
+        // Hide the modal
+
+    }, {
+        key: 'hideModal',
+        value: function hideModal(type) {
+            this.reg.modal.hideModal(type);
         }
     }, {
         key: 'fullScreen',
@@ -280,6 +311,7 @@ var Game = exports.Game = function (_Phaser$State) {
         value: function displayTreasure(player, treasure) {
             console.log(treasure.name);
             player.animations.play('attack');
+            this.showModal(treasure.name);
         }
     }, {
         key: 'disableCursors',
@@ -398,8 +430,6 @@ var Game = exports.Game = function (_Phaser$State) {
 
     return Game;
 }(Phaser.State);
-
-;
 
 },{}],5:[function(require,module,exports){
 'use strict';
