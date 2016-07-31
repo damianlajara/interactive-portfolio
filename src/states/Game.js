@@ -4,7 +4,10 @@ export class Game extends Phaser.State {
         this.jumpCount = 0;
         this.playerSize = 0.10;
 
-        this.bg = this.add.tileSprite(0, 0, this.game.world.width * 4, this.game.world.height, 'background');
+        // Get the largest width and height values
+        let tileSpriteWidth = Math.max(this.game.cache.getImage('background').width, this.game.world.width);
+        let tileSpriteHeight = Math.max(this.game.cache.getImage('background').height, this.game.world.height);
+        this.bg = this.add.tileSprite(0, 0, tileSpriteWidth, tileSpriteHeight, 'background');
 
         this.map = this.game.add.tilemap('base_level');
         this.map.addTilesetImage('small_tiles');
@@ -67,9 +70,8 @@ export class Game extends Phaser.State {
         var fullScreen = this.game.input.keyboard.addKey(Phaser.KeyCode.F);
         fullScreen.onDown.add(this.fullScreen, this);
 
-        this.reg = {};
-
         // initiate the modal class
+        this.reg = {};
         this.reg.modal = new gameModal(this.game);
         this.createModals();
 
@@ -89,7 +91,7 @@ export class Game extends Phaser.State {
 
     // Create a custom modal for every project
     createModals() {
-        // TODO: Add a way to word wrap the text depending on screen size
+        let rubyAdventureOffsetY = -(this.game.height / 4) + (this.game.cache.getImage('ruby_adventure_cover').height / 4)
         this.reg.modal.createModal({
             type:"Ruby Adventure",
             includeBackground: true,
@@ -102,19 +104,19 @@ export class Game extends Phaser.State {
                     color: "0xFFFFFF",
                     stroke: "0xCC0000",
                     strokeThickness: 6,
-                    offsetY: -20
+                    offsetY: rubyAdventureOffsetY + 180
                 },
                 {
                     type: "text",
-                    content: 'An interactive CLI game that can be thought of as a hybrid between a board game and a text-based RPG game \n where the player can fight monsters, unlock treasures and shop around for various weapons, armor and items.',
+                    content: this.wrapText('An interactive CLI game that can be thought of as a hybrid between a board game and a text-based RPG game where the player can fight monsters, unlock treasures and shop around for various weapons, armor and items.'),
                     fontSize: 32,
                     color: "0xFFFFFF",
-                    offsetY: 100
+                    offsetY: rubyAdventureOffsetY + 320
                 },
                 {
                     type: "image",
                     content: "ruby_adventure_cover",
-                    offsetY: -220,
+                    offsetY: rubyAdventureOffsetY,
                     contentScale: 0.5,
                     callback: function(){
                         window.open("http://www.damianlajara.com/projects/3", 'Ruby Adventure Project');
@@ -122,6 +124,12 @@ export class Game extends Phaser.State {
                 }
             ]
         });
+    }
+
+    // Wraps the text once it reaches a specified width.
+    wrapText(text, width = this.game.world.width, fontSize = 32) {
+      var regExp = new RegExp("([\\w\\s,-]{" + (width/fontSize) + ",}?\\w)\\s?\\b", "g")
+      return text.replace(regExp,"$1\n")
     }
 
     // Show the modal on the screen
@@ -201,7 +209,6 @@ export class Game extends Phaser.State {
 
     move_player() {
         // TODO: Implement Running Functionality
-
         this.player.body.velocity.x = 0;
 
         if (this.cursors.left.isDown) {
@@ -251,26 +258,28 @@ export class Game extends Phaser.State {
     }
 
     resize(width, height) {
-
         //	If the game container is resized this function will be called automatically.
         //	You can use it to align sprites that should be fixed in place and other responsive display things.
-
         this.bg.width = this.game.world.width;
-        this.bg.height = height;
+        this.bg.height = this.game.world.height;
     }
 
     render() {
-        // DEBUG INFO
-        // this.game.debug.body(this.player);
-        // this.game.debug.body(this.seaCollision);
-        // this.game.debug.body(this.groundLayer);
-        // this.game.debug.text('Game Width:' + this.game.width, 33, 118);
-        // this.game.debug.text('Ground Layer Width:' + this.groundLayer.width, 33, 136);
-        // this.game.debug.text('Game World Width:' + this.game.world.width, 33, 156);
-        // this.game.debug.inputInfo(32, 32);
+      // DEBUG INFO
+      // this.game.debug.body(this.player);
+      // this.game.debug.body(this.seaCollision);
+      // this.game.debug.body(this.groundLayer);
+
+      // this.game.debug.inputInfo(32, 32);
+      // this.game.debug.text('Game Width:' + this.game.width, 33, 118);
+      // this.game.debug.text('Game World Width:' + this.game.world.width, 33, 136);
+      // this.game.debug.text('Window Width:' + document.body.offsetWidth, 33, 156);
+      // this.game.debug.text('Ground Layer Width:' + this.groundLayer.width, 33, 176);
+      //
+      // this.game.debug.text('Game Height:' + this.game.height, 33, 196);
+      // this.game.debug.text('Game World Height:' + this.game.world.height, 33, 216);
+      // this.game.debug.text('Window Height:' + document.body.offsetHeight, 33, 236);
+      // this.game.debug.text('Ground Layer Height:' + this.groundLayer.height, 33, 256);
     }
 
 }
-
-
-
