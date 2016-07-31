@@ -1,6 +1,5 @@
 # Welcome to my interactive Portfolio
 
-
 ## Overview
 Here, you can roam freely around this wrapping world and search for various treasures.
 The treasures are of course representations of some of my projects on [Github](https://github.com/damianlajara).
