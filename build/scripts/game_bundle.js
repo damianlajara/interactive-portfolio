@@ -245,6 +245,7 @@ var Game = exports.Game = function (_Phaser$State) {
     }, {
         key: 'createModals',
         value: function createModals() {
+            // TODO: Add a way to word wrap the text depending on screen size
             this.reg.modal.createModal({
                 type: "Ruby Adventure",
                 includeBackground: true,

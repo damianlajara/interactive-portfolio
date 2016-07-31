@@ -89,6 +89,7 @@ export class Game extends Phaser.State {
 
     // Create a custom modal for every project
     createModals() {
+        // TODO: Add a way to word wrap the text depending on screen size
         this.reg.modal.createModal({
             type:"Ruby Adventure",
             includeBackground: true,
