@@ -13,8 +13,7 @@ export class Game extends Phaser.State {
         this.map.addTilesetImage('chest');
         this.map.createLayer('trees');
         this.groundLayer = this.map.createLayer('ground');
-        // console.log("Ground Layer: ", this.groundLayer);
-        this.groundLayer.debug = true;
+        // this.groundLayer.debug = true;
         this.groundLayer.resizeWorld();
 
         this.map.setCollisionBetween(0, 1033, true, 'ground');
@@ -97,10 +96,28 @@ export class Game extends Phaser.State {
             itemsArr: [
                 {
                     type: "text",
-                    content: "Ruby Adventure",
+                    content: 'Ruby Adventure',
                     fontSize: 42,
-                    color: "0xFEFF49",
-                    offsetY: 50
+                    color: "0xFFFFFF",
+                    stroke: "0xCC0000",
+                    strokeThickness: 6,
+                    offsetY: -20
+                },
+                {
+                    type: "text",
+                    content: 'An interactive CLI game that can be thought of as a hybrid between a board game and a text-based RPG game \n where the player can fight monsters, unlock treasures and shop around for various weapons, armor and items.',
+                    fontSize: 32,
+                    color: "0xFFFFFF",
+                    offsetY: 100
+                },
+                {
+                    type: "image",
+                    content: "ruby_adventure_cover",
+                    offsetY: -220,
+                    contentScale: 0.5,
+                    callback: function(){
+                        window.open("http://www.damianlajara.com/projects/3", 'Ruby Adventure Project');
+                    }
                 }
             ]
         });
@@ -108,7 +125,6 @@ export class Game extends Phaser.State {
 
     // Show the modal on the screen
     showModal(type){
-        console.log("showing " + type);
         this.reg.modal.showModal(type);
     }
 
@@ -125,7 +141,6 @@ export class Game extends Phaser.State {
             }
         }, this).filter( (name) => name != null );
         visibleModals.forEach(function(visibleModal) {
-            console.log('hiding ' + visibleModals);
             this.hideModal(visibleModal);
         }, this);
     }
@@ -144,9 +159,10 @@ export class Game extends Phaser.State {
     }
 
     displayTreasure(player, treasure) {
-        console.log(treasure.name);
         player.animations.play('attack');
-        this.showModal(treasure.name);
+        if(treasure.name != '') {
+            this.showModal(treasure.name)
+        }
     }
 
     disableCursors() {
@@ -243,14 +259,14 @@ export class Game extends Phaser.State {
     }
 
     render() {
-
-        this.game.debug.body(this.player);
-        this.game.debug.body(this.seaCollision);
-        this.game.debug.body(this.groundLayer);
-        this.game.debug.text('Game Width:' + this.game.width, 33, 118);
-        this.game.debug.text('Ground Layer Width:' + this.groundLayer.width, 33, 136);
-        this.game.debug.text('Game World Width:' + this.game.world.width, 33, 156);
-        this.game.debug.inputInfo(32, 32);
+        // DEBUG INFO
+        // this.game.debug.body(this.player);
+        // this.game.debug.body(this.seaCollision);
+        // this.game.debug.body(this.groundLayer);
+        // this.game.debug.text('Game Width:' + this.game.width, 33, 118);
+        // this.game.debug.text('Ground Layer Width:' + this.groundLayer.width, 33, 136);
+        // this.game.debug.text('Game World Width:' + this.game.world.width, 33, 156);
+        // this.game.debug.inputInfo(32, 32);
     }
 
 }

@@ -49,14 +49,14 @@ gameModal = function (game) {
                 modal.x = 0;
                 modal.y = 0;
 
-                modal.drawRect(0, 0, game.width, game.height * 2);
+                modal.drawRect(0, 0, game.width, game.height);
 
                 if (modalCloseOnInput === true) {
 
                     var innerModal = game.add.sprite(0, 0);
                     innerModal.inputEnabled = true;
                     innerModal.width = game.width;
-                    innerModal.height = game.height * 2;
+                    innerModal.height = game.height;
                     innerModal.type = type;
                     innerModal.input.priorityID = 0;
                     innerModal.events.onInputDown.add(function (e, pointer) {
@@ -85,7 +85,7 @@ gameModal = function (game) {
                 var innerModal = game.add.sprite(0, 0);
                 innerModal.inputEnabled = true;
                 innerModal.width = game.width;
-                innerModal.height = game.height * 2;
+                innerModal.height = game.height;
                 innerModal.type = type;
                 innerModal.input.priorityID = 0;
 
