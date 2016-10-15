@@ -36,7 +36,7 @@ var MainGame = exports.MainGame = function (_Phaser$Game) {
 
         //	Add the States your game has.
         //	You don't have to do this in the html, it could be done in your Boot state too, but for simplicity I'll keep it here.
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MainGame).call(this, "100%", "100%", Phaser.AUTO, 'portfolio_game'));
+        var _this = _possibleConstructorReturn(this, (MainGame.__proto__ || Object.getPrototypeOf(MainGame)).call(this, "100%", "100%", Phaser.AUTO, 'portfolio_game'));
         //	100% of the browser window - see Boot.js for additional configuration
 
 
@@ -74,7 +74,7 @@ var Boot = exports.Boot = function (_Phaser$State) {
     function Boot() {
         _classCallCheck(this, Boot);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Boot).apply(this, arguments));
+        return _possibleConstructorReturn(this, (Boot.__proto__ || Object.getPrototypeOf(Boot)).apply(this, arguments));
     }
 
     _createClass(Boot, [{
@@ -112,7 +112,7 @@ var Boot = exports.Boot = function (_Phaser$State) {
             this.game.load.image('crate', '../assets/tile_sets/crate.png');
             this.game.load.image('all_tiles', '../assets/tile_sets/ground_tiles.png');
 
-            this.game.load.image('ruby_adventure_cover', '../assets/images/covers/ruby_adventure.jpeg');
+            this.game.load.image('ruby_adventure_cover', '../assets/images/covers/ruby-adventure.png');
         }
     }, {
         key: 'create',
@@ -148,7 +148,7 @@ var Game = exports.Game = function (_Phaser$State) {
     function Game() {
         _classCallCheck(this, Game);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Game).apply(this, arguments));
+        return _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).apply(this, arguments));
     }
 
     _createClass(Game, [{
@@ -283,8 +283,8 @@ var Game = exports.Game = function (_Phaser$State) {
     }, {
         key: 'wrapText',
         value: function wrapText(text) {
-            var width = arguments.length <= 1 || arguments[1] === undefined ? this.game.world.width : arguments[1];
-            var fontSize = arguments.length <= 2 || arguments[2] === undefined ? 32 : arguments[2];
+            var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.game.world.width;
+            var fontSize = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 32;
 
             var regExp = new RegExp("([\\w\\s,-]{" + width / fontSize + ",}?\\w)\\s?\\b", "g");
             return text.replace(regExp, "$1\n");
@@ -487,7 +487,7 @@ var MainMenu = exports.MainMenu = function (_Phaser$State) {
     function MainMenu() {
         _classCallCheck(this, MainMenu);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(MainMenu).apply(this, arguments));
+        return _possibleConstructorReturn(this, (MainMenu.__proto__ || Object.getPrototypeOf(MainMenu)).apply(this, arguments));
     }
 
     _createClass(MainMenu, [{
@@ -546,7 +546,7 @@ var Preloader = exports.Preloader = function (_Phaser$State) {
   function Preloader() {
     _classCallCheck(this, Preloader);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Preloader).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Preloader.__proto__ || Object.getPrototypeOf(Preloader)).apply(this, arguments));
   }
 
   _createClass(Preloader, [{

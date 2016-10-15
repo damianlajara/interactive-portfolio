@@ -31,7 +31,7 @@ export class Boot extends Phaser.State {
             this.game.load.image('crate', '../assets/tile_sets/crate.png');
             this.game.load.image('all_tiles', '../assets/tile_sets/ground_tiles.png');
 
-            this.game.load.image('ruby_adventure_cover', '../assets/images/covers/ruby_adventure.jpeg');
+            this.game.load.image('ruby_adventure_cover', '../assets/images/covers/ruby-adventure.png');
         }
 
         create() {
