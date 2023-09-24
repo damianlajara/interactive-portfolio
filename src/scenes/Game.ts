@@ -4,21 +4,21 @@ export default class Game extends Phaser.Scene {
   jumpTimer: number = 0;
   jumpCount: number = 0;
   playerSize: number = 0.1;
-  player: Phaser.GameObjects.Sprite;
+  player?: Phaser.Physics.Arcade.Sprite;
+  cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
+  facing: "left" | "right" = "right";
+
+  constructor() {
+    super({
+      key: "Game",
+    });
+  }
 
   preload() {
-    var textStyle = {
-      font: "45px Arial",
-      alight: "center",
-      stroke: "blue",
-      fill: "blue",
-    };
-
-    this.add.text(80, 150, "loading...", textStyle);
     this.load.atlas(
       "player",
       "../assets/sprites/player/full_player.png",
-      "assets/sprites/player/full_player.json"
+      "../assets/sprites/player/full_player.json"
     );
     // this.game.load.spritesheet('player', '/assets/sprites/player/player.png', 587, 707, 40);
 
@@ -39,15 +39,27 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
+    this.physics.world.setBounds(0, 0, 800, 560);
     this.player = this.physics.add
       .sprite(90, 500, "player")
-      .setOrigin(0.5, 0.5)
-      .setBounce(1, 1)
+      .setOrigin(1, 1)
+      .setBounce(0.1, 0.2)
       .setCollideWorldBounds(true)
       .setMaxVelocity(500)
       .setDrag(30)
-      .setBodySize(50, 60);
+      .setBodySize(50, 60)
+      .setScale(0.1);
 
+    this.cursors = this?.input?.keyboard?.createCursorKeys();
+
+    this._createAnimations();
+  }
+
+  update() {
+    this._move_player();
+  }
+
+  _createAnimations() {
     // Used https://www.leshylabs.com/apps/sstool/ to generate Atlas Map
     this.anims.create({
       key: "walk",
@@ -114,5 +126,63 @@ export default class Game extends Phaser.Scene {
       frameRate: 8,
       repeat: 0,
     });
+  }
+
+  _move_player() {
+    const { left, right, space } = this.cursors || {};
+    this.player?.setVelocityX(0);
+    if (left?.isDown) {
+      this._moveLeft();
+    } else if (right?.isDown) {
+      this._moveRight();
+    } else if (space?.isDown) {
+      this._jump();
+    } else {
+      this.player?.anims.play("idle", true);
+      this.player?.setAccelerationX(0);
+      this.player?.setVelocityX(0);
+    }
+  }
+
+  _moveRight() {
+    if (this.facing !== "right") {
+      this.facing = "right";
+      this.player?.toggleFlipX();
+    }
+    this.player?.anims.play("walk", true);
+    this.player?.setAccelerationX(50);
+    this.player?.setVelocityX(150);
+    // Allow user to jump while moving
+    if (this.cursors?.space?.isDown) this._jump();
+  }
+
+  _moveLeft() {
+    if (this.facing !== "left") {
+      this.facing = "left";
+      this.player?.toggleFlipX();
+    }
+    this.player?.anims.play("walk", true);
+    this.player?.setAccelerationX(-50);
+    this.player?.setVelocityX(-150);
+    // Allow user to jump while moving
+    if (this.cursors?.space?.isDown) this._jump();
+  }
+
+  _jump() {
+    if (this.player?.body?.blocked.down && this.time.now > this.jumpTimer) {
+      this.jumpCount = 0; // Reset count every time we touch the floor
+      this.player?.anims.play("jump");
+      this.player?.setVelocityY(-290);
+      this.jumpTimer = this.time.now + 350;
+      this.jumpCount += 1;
+    } else if (
+      !this.player?.body?.blocked.down &&
+      this.time.now > this.jumpTimer &&
+      this.jumpCount < 2
+    ) {
+      this.player?.anims.play("jump");
+      this.player?.setVelocityY(-310);
+      this.jumpCount += 1;
+    }
   }
 }
