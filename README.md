@@ -22,8 +22,7 @@ If you reach either end of the map, it will wrap around and you will appear on t
 * Download, clone or fork this repo.
 * `cd` into the root of this directory.
 * Run `npm install` to install all the dependencies.
-* Run `npm run-script play` and visit [localhost:5000](localhost:5000).
-* You can also run `gulp` which will use browser-sync to serve the files. Visit [localhost:3000](localhost:3000) to see the debugging effects of this beast.
+* Run `npm run dev` and visit [localhost:5173](localhost:5173).
 * Bam! That's it! Hope you like it.
 
 ## Live Version
