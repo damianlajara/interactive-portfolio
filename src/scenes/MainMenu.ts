@@ -1,6 +1,12 @@
 import Phaser from "phaser";
 
 export default class MainMenu extends Phaser.Scene {
+  constructor() {
+    super({
+      key: "MainMenu",
+    });
+  }
+
   create() {
     const screenCenterX =
       this.cameras.main.worldView.x + this.cameras.main.width / 2;
@@ -11,10 +17,9 @@ export default class MainMenu extends Phaser.Scene {
     this.add.sprite(screenCenterX - 25, screenCenterY - 240, "me_semiround");
 
     const textStyle = {
-      font: "45px Arial",
+      font: "36px Arial",
       alight: "center",
-      stroke: "green",
-      strokeThickness: 3,
+      strokeThickness: 1,
       fill: "white",
     };
 
