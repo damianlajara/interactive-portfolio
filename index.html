@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Damian Lajara's Interactive Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+      <div class="loading-text">Loading Interactive Portfolio...</div>
+    </div>
+
+    <!-- Game container -->
+    <div id="portfolio_game"></div>
+
+    <!-- Controls hint -->
+    <div class="controls-hint">
+      <p>Controls:</p>
+      <p>→ / ← : Move</p>
+      <p>SPACE : Jump (double jump available)</p>
+      <p>F : Toggle Fullscreen</p>
+    </div>
+
+    <!-- Fullscreen button for mobile -->
+    <button class="fullscreen-button" id="fullscreen-button">Fullscreen</button>
+
+    <script type="module" src="/src/index.js"></script>
+    <!-- Additional script to handle loading screen -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Hide loading screen when game is ready
+        window.addEventListener('phaser-ready', function () {
+          const loadingOverlay = document.getElementById('loading-overlay');
+          loadingOverlay.classList.add('fade-out');
+          setTimeout(() => {
+            loadingOverlay.style.display = 'none';
+          }, 500);
+        });
+
+        // Fullscreen button for mobile
+        document
+          .getElementById('fullscreen-button')
+          .addEventListener('click', function () {
+            if (!document.fullscreenElement) {
+              document.documentElement.requestFullscreen();
+            } else {
+              if (document.exitFullscreen) {
+                document.exitFullscreen();
+              }
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

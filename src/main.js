@@ -1,21 +1,37 @@
+import Phaser from 'phaser';
 import { Boot } from './states/Boot';
-import { Preloader } from './states/Preloader';
-import { MainMenu } from './states/MainMenu';
 import { Game } from './states/Game';
+import { MainMenu } from './states/MainMenu';
+import { Preloader } from './states/Preloader';
 
-export class MainGame extends Phaser.Game {
-    constructor() {
-        //	100% of the browser window - see Boot.js for additional configuration
-        super("100%", "100%", Phaser.AUTO, 'portfolio_game');
+export class MainGame {
+  constructor() {
+    const config = {
+      type: Phaser.AUTO,
+      scale: {
+        mode: Phaser.Scale.FIT,
+        parent: 'portfolio_game',
+        width: 1600,
+        height: 900,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+      },
+      physics: {
+        default: 'arcade',
+        arcade: {
+          gravity: { y: 500 },
+          debug: false,
+        },
+      },
+      scene: [Boot, Preloader, MainMenu, Game],
+    };
 
-        //	Add the States your game has.
-        //	You don't have to do this in the html, it could be done in your Boot state too, but for simplicity I'll keep it here.
-        this.state.add('Boot', Boot);
-        this.state.add('Preloader', Preloader);
-        this.state.add('MainMenu', MainMenu);
-        this.state.add('Game', Game);
+    const game = new Phaser.Game(config);
 
-        //	Now start the Boot state.
-        this.state.start('Boot');
-    }
+    // Dispatch an event when the game is ready
+    game.events.once('ready', () => {
+      window.dispatchEvent(new Event('phaser-ready'));
+    });
+
+    return game;
+  }
 }

@@ -1,30 +1,84 @@
-export class Preloader extends Phaser.State{
-	preload() {
+import Phaser from 'phaser';
 
-        // //	These are the assets we loaded in Boot.js
-        // //	A nice sparkly background and a loading progress bar
-        //
-        // this.background = this.add.sprite(0, 0, 'preloaderBackground');
-        // this.preloadBar = this.add.sprite(300, 400, 'preloaderBar');
-        //
-        // //	This sets the preloadBar sprite as a loader sprite.
-        // //	What that does is automatically crop the sprite from 0 to full-width
-        // //	as the files below are loaded in.
-        //
-        // this.load.setPreloadSprite(this.preloadBar);
-        //
-        // //	Here we load the rest of the assets our game needs.
-        // //	You can find all of these assets in the Phaser Examples repository
-        //
-	    // this.load.image('tetris1', 'assets/sprites/tetrisblock1.png');
-	    // this.load.image('tetris2', 'assets/sprites/tetrisblock2.png');
-	    // this.load.image('tetris3', 'assets/sprites/tetrisblock3.png');
-	    // this.load.image('hotdog', 'assets/sprites/hotdog.png');
-	    // this.load.image('starfield', 'assets/skies/deep-space.jpg');
-	}
+export class Preloader extends Phaser.Scene {
+  constructor() {
+    super({ key: 'Preloader' });
+  }
 
-	create() {
-		this.state.start('MainMenu');
-	}
+  create() {
+    // Create player animations
+    this.createAnimations();
 
+    // Continue to main menu
+    this.scene.start('MainMenu');
+  }
+
+  createAnimations() {
+    // Create all player animations
+    this.anims.create({
+      key: 'walk',
+      frames: this.anims.generateFrameNames('player', {
+        prefix: 'Walk',
+        start: 1,
+        end: 10,
+      }),
+      frameRate: 8,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'run',
+      frames: this.anims.generateFrameNames('player', {
+        prefix: 'Run',
+        start: 1,
+        end: 10,
+      }),
+      frameRate: 8,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'idle',
+      frames: this.anims.generateFrameNames('player', {
+        prefix: 'Idle',
+        start: 1,
+        end: 10,
+      }),
+      frameRate: 4,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'attack',
+      frames: this.anims.generateFrameNames('player', {
+        prefix: 'Attack',
+        start: 1,
+        end: 10,
+      }),
+      frameRate: 12,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: 'jump',
+      frames: this.anims.generateFrameNames('player', {
+        prefix: 'Jump',
+        start: 1,
+        end: 10,
+      }),
+      frameRate: 8,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: 'dead',
+      frames: this.anims.generateFrameNames('player', {
+        prefix: 'Dead',
+        start: 1,
+        end: 10,
+      }),
+      frameRate: 8,
+      repeat: 0,
+    });
+  }
 }
